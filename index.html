@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>テレアポ研修 | IS事業部 with ズーミー</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --navy:#0B1F3A;
+  --navy-soft:#152B4D;
+  --ink:#182238;
+  --ink-soft:#5B6478;
+  --cream:#F6F4EC;
+  --paper:#FFFFFF;
+  --sky:#3E8EF7;
+  --sky-deep:#2563D9;
+  --leaf:#5FBE4E;
+  --leaf-deep:#3F9A31;
+  --sun:#FFC93C;
+  --line:#E5E1D4;
+  --shadow: 0 20px 45px -20px rgba(11,31,58,0.25);
+  --radius-lg: 26px;
+  --radius-md: 18px;
+  --radius-sm: 12px;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--ink);
+  font-family:'Noto Sans JP',sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,.display{
+  font-family:'Zen Maru Gothic',sans-serif;
+  font-weight:900;
+  color:var(--navy);
+  letter-spacing:.01em;
+}
+p{line-height:1.85;color:var(--ink-soft);}
+button{font-family:inherit;}
+img{max-width:100%;display:block;}
+
+/* ---------- layout shell ---------- */
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+
+/* ---------- header ---------- */
+header.site{
+  position:sticky;top:0;z-index:40;
+  background:rgba(246,244,236,0.86);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.site-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 0;
+}
+.brand{display:flex;align-items:center;gap:10px;}
+.brand-mark{
+  width:34px;height:34px;border-radius:50%;
+  background:var(--navy);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.brand-mark svg{width:18px;height:18px;}
+.brand-text{line-height:1.15;}
+.brand-text .b1{font-family:'Zen Maru Gothic',sans-serif;font-weight:700;font-size:14px;color:var(--navy);}
+.brand-text .b2{font-size:10.5px;color:var(--ink-soft);letter-spacing:.04em;}
+
+.progress-pill{
+  display:flex;align-items:center;gap:10px;
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:6px 16px 6px 8px;
+  box-shadow:0 6px 16px -10px rgba(11,31,58,0.3);
+}
+.progress-pill .ring{width:26px;height:26px;flex-shrink:0;}
+.progress-pill .txt{font-size:12px;font-weight:700;color:var(--navy);}
+.progress-pill .txt span{color:var(--sky-deep);}
+
+/* ---------- hero ---------- */
+.hero{padding:56px 0 40px;}
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.15fr 0.85fr;
+  gap:48px;
+  align-items:center;
+}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;font-weight:700;color:var(--leaf-deep);
+  background:rgba(95,190,78,0.12);
+  border:1px solid rgba(95,190,78,0.35);
+  padding:6px 14px;border-radius:999px;
+  margin-bottom:18px;
+}
+.eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--leaf);}
+
+.hero h1{
+  font-size:clamp(28px,4.2vw,44px);
+  line-height:1.35;
+  margin:0 0 20px;
+}
+.hero h1 em{
+  font-style:normal;
+  background:linear-gradient(180deg,transparent 62%, rgba(62,142,247,0.28) 62%);
+}
+
+.speech{
+  position:relative;
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  padding:20px 22px;
+  max-width:480px;
+  box-shadow:var(--shadow);
+  margin-bottom:26px;
+}
+.speech::after{
+  content:"";position:absolute;left:34px;bottom:-9px;
+  width:18px;height:18px;background:var(--paper);
+  border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+  transform:rotate(45deg);
+}
+.speech .who{
+  display:flex;align-items:center;gap:8px;
+  font-size:11.5px;font-weight:700;color:var(--sky-deep);margin-bottom:8px;
+}
+.speech .who .dot{width:6px;height:6px;border-radius:50%;background:var(--sky);}
+.speech p{margin:0;color:var(--ink);font-size:14.5px;font-weight:500;}
+
+.hero-stats{display:flex;gap:28px;}
+.hero-stats .stat b{
+  display:block;font-family:'Zen Maru Gothic',sans-serif;font-weight:900;
+  font-size:26px;color:var(--navy);
+}
+.hero-stats .stat span{font-size:11.5px;color:var(--ink-soft);}
+
+/* ---- growth stem (signature element) ---- */
+.stem-card{
+  position:relative;
+  background:linear-gradient(180deg,#0E2544 0%, #0B1F3A 100%);
+  border-radius:var(--radius-lg);
+  padding:30px 0 70px;
+  box-shadow:var(--shadow);
+  overflow:visible;
+  min-height:460px;
+  display:flex;flex-direction:column;align-items:center;
+}
+.stem-card::before{
+  content:"";position:absolute;inset:0;
+  border-radius:inherit;
+  background:
+    radial-gradient(circle at 85% 15%, rgba(62,142,247,0.28), transparent 55%),
+    radial-gradient(circle at 10% 90%, rgba(95,190,78,0.22), transparent 50%);
+  pointer-events:none;
+}
+.stem-label{
+  position:relative;z-index:2;
+  font-size:11px;letter-spacing:.08em;color:rgba(255,255,255,0.6);
+  font-weight:700;margin-bottom:6px;
+}
+.stem-title{
+  position:relative;z-index:2;
+  font-family:'Zen Maru Gothic',sans-serif;font-weight:700;color:#fff;
+  font-size:15px;margin-bottom:22px;
+}
+.stem-area{
+  position:relative;z-index:2;
+  width:100%;flex:1;
+  display:flex;align-items:flex-end;justify-content:center;
+}
+.stem-track{
+  position:relative;
+  width:6px;height:280px;
+  background:rgba(255,255,255,0.14);
+  border-radius:6px;
+}
+.stem-fill{
+  position:absolute;left:0;bottom:0;width:100%;
+  border-radius:6px;
+  background:linear-gradient(180deg, var(--leaf), var(--sky));
+  height:0%;
+  transition:height 900ms cubic-bezier(.22,1,.36,1);
+}
+.stem-node{
+  position:absolute;left:50%;
+  width:22px;height:22px;
+  transform:translate(-50%,50%);
+  border-radius:50%;
+  background:var(--navy-soft);
+  border:2px solid rgba(255,255,255,0.3);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .5s ease;
+  z-index:3;
+}
+.stem-node svg{width:11px;height:11px;opacity:0;transition:opacity .3s ease;}
+.stem-node.done{
+  background:var(--leaf);border-color:var(--leaf);
+  box-shadow:0 0 0 6px rgba(95,190,78,0.18);
+}
+.stem-node.done svg{opacity:1;}
+.stem-node-label{
+  position:absolute;left:66px;top:50%;transform:translateY(-50%);
+  white-space:nowrap;font-size:11px;color:rgba(255,255,255,0.55);font-weight:600;
+  transition:color .4s ease;
+}
+.stem-node.done + .stem-node-label,
+.stem-node.done ~ .stem-node-label{}
+.stem-node-label.done{color:#fff;}
+
+.stem-mascot{
+  position:absolute;left:50%;bottom:0%;
+  width:112px;
+  max-width:none;
+  transform:translate(-50%,18%);
+  transition:bottom 900ms cubic-bezier(.22,1,.36,1);
+  filter:drop-shadow(0 14px 18px rgba(0,0,0,0.35));
+  animation:float 4.2s ease-in-out infinite;
+  z-index:4;
+}
+@keyframes float{
+  0%,100%{transform:translate(-50%,18%) translateY(0);}
+  50%{transform:translate(-50%,18%) translateY(-8px);}
+}
+
+/* ---------- section heading ---------- */
+.section-head{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:20px;margin:0 0 26px;flex-wrap:wrap;
+}
+.section-head h2{font-size:clamp(22px,3vw,28px);margin:0 0 6px;}
+.section-head p{margin:0;font-size:13.5px;max-width:440px;}
+.legend{display:flex;gap:16px;flex-wrap:wrap;}
+.legend span{
+  font-size:11.5px;font-weight:700;color:var(--ink-soft);
+  display:flex;align-items:center;gap:6px;
+}
+.legend i{width:8px;height:8px;border-radius:50%;display:inline-block;}
+
+/* ---------- module grid ---------- */
+.modules{padding:34px 0 90px;}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+.card{
+  position:relative;
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  padding:24px 22px 22px;
+  cursor:pointer;
+  transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  display:flex;flex-direction:column;
+  min-height:238px;
+}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:transparent;}
+.card:focus-visible{outline:3px solid var(--sky);outline-offset:3px;}
+.card.locked{cursor:default;}
+.card.locked:hover{transform:none;box-shadow:none;}
+
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;}
+.card-icon{
+  width:44px;height:44px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;flex-shrink:0;
+}
+.tag-listen .card-icon{background:rgba(62,142,247,0.14);}
+.tag-speak .card-icon{background:rgba(255,201,60,0.22);}
+.tag-close .card-icon{background:rgba(95,190,78,0.16);}
+.tag-block .card-icon{background:rgba(229,101,90,0.14);}
+.tag-ai .card-icon,.tag-role .card-icon{background:rgba(11,31,58,0.06);}
+
+.badge{
+  font-size:10.5px;font-weight:700;padding:4px 10px;border-radius:999px;
+  white-space:nowrap;
+}
+.badge.todo{background:#F1EEE3;color:var(--ink-soft);}
+.badge.doing{background:rgba(255,201,60,0.25);color:#8A6400;}
+.badge.done{background:rgba(95,190,78,0.18);color:var(--leaf-deep);}
+.badge.soon{background:#EDEDED;color:#9A9A9A;}
+
+.card h3{font-size:16.5px;margin:0 0 8px;color:var(--navy);}
+.card p.desc{font-size:12.8px;margin:0 0 16px;flex:1;}
+
+.bar{height:5px;border-radius:5px;background:#EFEBDD;overflow:hidden;margin-bottom:8px;}
+.bar i{display:block;height:100%;background:var(--sky);border-radius:5px;transition:width .5s ease;}
+.card-foot{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--ink-soft);font-weight:600;}
+.card-foot .go{color:var(--sky-deep);display:flex;align-items:center;gap:4px;}
+
+.card.locked .card h3,.card.locked h3{color:#A9A9A9;}
+.card.locked p.desc{color:#B9B5A8;}
+
+/* ---------- drawer ---------- */
+.scrim{
+  position:fixed;inset:0;background:rgba(11,19,35,0.45);
+  opacity:0;pointer-events:none;transition:opacity .35s ease;z-index:60;
+}
+.scrim.open{opacity:1;pointer-events:auto;}
+
+.drawer{
+  position:fixed;top:0;right:0;height:100%;
+  width:min(520px,100%);
+  background:var(--cream);
+  box-shadow:-30px 0 60px -20px rgba(11,31,58,0.4);
+  transform:translateX(100%);
+  transition:transform .45s cubic-bezier(.22,1,.36,1);
+  z-index:61;
+  display:flex;flex-direction:column;
+}
+.drawer.open{transform:translateX(0);}
+.drawer-head{
+  padding:22px 26px;border-bottom:1px solid var(--line);
+  display:flex;align-items:flex-start;justify-content:space-between;gap:14px;
+  background:var(--paper);
+}
+.drawer-head .tagline{font-size:11px;font-weight:700;color:var(--sky-deep);margin-bottom:6px;}
+.drawer-head h3{font-size:19px;margin:0;color:var(--navy);}
+.close-btn{
+  width:34px;height:34px;border-radius:50%;border:1px solid var(--line);
+  background:var(--paper);cursor:pointer;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s ease;
+}
+.close-btn:hover{background:#F1EEE3;}
+.drawer-body{padding:24px 26px 90px;overflow-y:auto;flex:1;}
+.drawer-body p{font-size:13.5px;}
+
+.mascot-note{
+  display:flex;gap:12px;align-items:flex-start;
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:14px 16px;margin-bottom:22px;
+}
+.mascot-note img{width:40px;flex-shrink:0;}
+.mascot-note .t{font-size:10.5px;font-weight:700;color:var(--sky-deep);margin-bottom:3px;}
+.mascot-note p{margin:0;font-size:12.8px;color:var(--ink);}
+
+.lesson-block{margin-bottom:26px;}
+.lesson-block h4{
+  font-family:'Zen Maru Gothic',sans-serif;font-size:13.5px;color:var(--navy);
+  margin:0 0 10px;display:flex;align-items:center;gap:8px;
+}
+.lesson-block h4 .n{
+  width:20px;height:20px;border-radius:50%;background:var(--navy);color:#fff;
+  font-size:10.5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+
+/* flip cards */
+.flip-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.flip{
+  position:relative;height:96px;perspective:800px;cursor:pointer;
+}
+.flip-inner{
+  position:relative;width:100%;height:100%;
+  transition:transform .55s cubic-bezier(.22,1,.36,1);
+  transform-style:preserve-3d;
+}
+.flip.flipped .flip-inner{transform:rotateY(180deg);}
+.flip-face{
+  position:absolute;inset:0;border-radius:var(--radius-sm);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  backface-visibility:hidden;padding:8px;text-align:center;
+}
+.flip-face.front{background:var(--paper);border:1px solid var(--line);}
+.flip-face.front .ico{font-size:20px;margin-bottom:4px;}
+.flip-face.front .nm{font-size:11.5px;font-weight:700;color:var(--navy);}
+.flip-face.back{background:var(--navy);color:#fff;transform:rotateY(180deg);}
+.flip-face.back p{color:rgba(255,255,255,0.88);font-size:10.8px;margin:0;line-height:1.6;}
+
+/* order challenge */
+.order-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+.order-btn{
+  padding:10px 16px;border-radius:999px;border:1.5px solid var(--line);
+  background:var(--paper);font-size:12.5px;font-weight:700;color:var(--navy);
+  cursor:pointer;transition:all .2s ease;
+}
+.order-btn:hover{border-color:var(--sky);}
+.order-btn.picked{background:var(--sky);border-color:var(--sky);color:#fff;}
+.order-btn:disabled{opacity:.4;cursor:default;}
+.order-result{font-size:12.5px;font-weight:700;margin-top:6px;min-height:18px;}
+.order-result.ok{color:var(--leaf-deep);}
+.order-result.ng{color:#C24B3F;}
+
+/* talk cards (accordion) */
+.talk-item{
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-sm);
+  margin-bottom:10px;overflow:hidden;
+}
+.talk-q{
+  padding:14px 16px;font-size:13px;font-weight:700;color:var(--navy);
+  display:flex;justify-content:space-between;align-items:center;cursor:pointer;
+}
+.talk-q .mark{font-size:16px;color:var(--sky-deep);transition:transform .3s ease;}
+.talk-item.open .talk-q .mark{transform:rotate(45deg);}
+.talk-a{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+.talk-item.open .talk-a{max-height:160px;}
+.talk-a p{margin:0 16px 14px;font-size:12.5px;background:#F1F6FF;border-radius:10px;padding:10px 12px;color:var(--navy);}
+
+/* practice textarea */
+textarea.practice{
+  width:100%;min-height:90px;border-radius:var(--radius-sm);border:1.5px solid var(--line);
+  padding:12px 14px;font-family:inherit;font-size:13px;resize:vertical;
+  background:var(--paper);
+}
+textarea.practice:focus{outline:none;border-color:var(--sky);}
+
+.complete-btn{
+  width:100%;margin-top:8px;padding:14px;border:none;border-radius:999px;
+  background:var(--navy);color:#fff;font-weight:700;font-size:13.5px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:background .2s ease, transform .15s ease;
+}
+.complete-btn:hover{background:var(--sky-deep);}
+.complete-btn:active{transform:scale(.98);}
+.complete-btn.done{background:var(--leaf-deep);}
+.complete-btn:disabled{background:#D8D4C6;cursor:not-allowed;}
+
+.soon-box{
+  text-align:center;padding:60px 20px;
+}
+.soon-box .em{font-size:34px;margin-bottom:14px;}
+.soon-box h4{font-size:15px;color:var(--navy);margin:0 0 8px;}
+.soon-box p{font-size:12.8px;margin:0 auto;max-width:280px;}
+
+/* toast */
+.toast{
+  position:fixed;left:50%;bottom:26px;transform:translate(-50%,120%);
+  background:var(--navy);color:#fff;padding:14px 22px;border-radius:999px;
+  font-size:13px;font-weight:700;display:flex;align-items:center;gap:10px;
+  box-shadow:0 20px 40px -14px rgba(11,31,58,0.5);
+  transition:transform .5s cubic-bezier(.22,1,.36,1);
+  z-index:80;
+}
+.toast.show{transform:translate(-50%,0);}
+.toast img{width:26px;}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:26px 0 40px;}
+footer .wrap{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+footer p{margin:0;font-size:11.5px;color:var(--ink-soft);}
+.demo-tag{
+  font-size:10.5px;font-weight:700;color:var(--sky-deep);
+  background:rgba(62,142,247,0.1);border:1px solid rgba(62,142,247,0.25);
+  padding:4px 12px;border-radius:999px;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width:920px){
+  .hero-grid{grid-template-columns:1fr;}
+  .stem-card{min-height:340px;}
+  .grid{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width:600px){
+  .wrap{padding:0 18px;}
+  .grid{grid-template-columns:1fr;}
+  .hero-stats{gap:18px;}
+  .drawer{width:100%;}
+  .site-bar{gap:8px;}
+  .brand-text .b2{display:none;}
+  .brand-text .by-tag{display:none;}
+  .brand-text .b1{font-size:12.5px;white-space:nowrap;}
+  .progress-pill{padding:5px 12px 5px 6px;}
+  .progress-pill .txt{font-size:11px;white-space:nowrap;}
+  .pill-label{display:none;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none !important;transition:none !important;}
+}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap site-bar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3c3 3 3 6 0 9-3-3-3-6 0-9Z" fill="#5FBE4E"/><path d="M12 21v-9" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </div>
+      <div class="brand-text">
+        <div class="b1">テレアポ研修 <span class="by-tag" style="color:#5B6478;font-weight:500;">by ズーミー</span></div>
+        <div class="b2">Runbird IS事業部・育成デモ</div>
+      </div>
+    </div>
+    <div class="progress-pill">
+      <svg class="ring" viewBox="0 0 36 36" id="ringSvg">
+        <circle cx="18" cy="18" r="15.5" fill="none" stroke="#EFEBDD" stroke-width="4"/>
+        <circle id="ringProgress" cx="18" cy="18" r="15.5" fill="none" stroke="#5FBE4E" stroke-width="4"
+          stroke-linecap="round" stroke-dasharray="97.4" stroke-dashoffset="97.4"
+          transform="rotate(-90 18 18)" style="transition:stroke-dashoffset .6s ease"/>
+      </svg>
+      <div class="txt"><span id="doneCount">0</span>/4 <span class="pill-label">モジュール完了</span></div>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">IS事業部 公式キャラクター ズーミーと学ぶ</div>
+      <h1>今日も、<em>一歩ずつ</em><br>お客様との芽を育てよう。</h1>
+
+      <div class="speech">
+        <div class="who"><span class="dot"></span>ズーミー</div>
+        <p id="speechText">やっほー！今日はどのレッスンから始める？気になるものをクリックしてね。一緒に育てていこう！</p>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat"><b id="statDone">0</b><span>完了モジュール</span></div>
+        <div class="stat"><b>4</b><span>研修中モジュール</span></div>
+        <div class="stat"><b>2</b><span>近日公開</span></div>
+      </div>
+    </div>
+
+    <div class="stem-card">
+      <div class="stem-label">GROWTH TRACKER</div>
+      <div class="stem-title">学習の芽</div>
+      <div class="stem-area">
+        <div class="stem-track" id="stemTrack">
+          <div class="stem-fill" id="stemFill"></div>
+
+          <div class="stem-node" id="node-0" style="bottom:0%;">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4 10-10" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="stem-node-label" id="label-0" style="bottom:0%;">―</div>
+
+          <div class="stem-node" id="node-1" style="bottom:33%;">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4 10-10" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="stem-node-label" id="label-1" style="bottom:33%;">―</div>
+
+          <div class="stem-node" id="node-2" style="bottom:66%;">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4 10-10" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="stem-node-label" id="label-2" style="bottom:66%;">―</div>
+
+          <div class="stem-node" id="node-3" style="bottom:100%;">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4 10-10" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="stem-node-label" id="label-3" style="bottom:100%;">―</div>
+
+          <img src="assets/zoomy.png" alt="ズーミー" class="stem-mascot" id="stemMascot">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="modules">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>レッスンを選ぶ</h2>
+        <p>順番はどれからでもOK。気になるモジュールから、ズーミーと一緒に進めよう。</p>
+      </div>
+      <div class="legend">
+        <span><i style="background:#EFEBDD"></i>未着手</span>
+        <span><i style="background:#FFC93C"></i>進行中</span>
+        <span><i style="background:#5FBE4E"></i>完了</span>
+      </div>
+    </div>
+
+    <div class="grid" id="cardGrid">
+
+      <div class="card" data-module="a" data-tag="tag-listen">
+        <div class="card-top">
+          <div class="card-icon tag-listen">👂</div>
+          <div class="badge todo" id="badge-a">未着手</div>
+        </div>
+        <h3>聞く力トレーニング</h3>
+        <p class="desc">復唱＋深掘り質問。「断られた理由」を自分の言葉で説明できるようになる基本レッスン。</p>
+        <div class="bar"><i id="bar-a" style="width:0%;background:#3E8EF7;"></i></div>
+        <div class="card-foot"><span>所要 約5分</span><span class="go">はじめる →</span></div>
+      </div>
+
+      <div class="card" data-module="b" data-tag="tag-speak">
+        <div class="card-top">
+          <div class="card-icon tag-speak">🗣️</div>
+          <div class="badge todo" id="badge-b">未着手</div>
+        </div>
+        <h3>伝え方の5原則</h3>
+        <p class="desc">スピード・トーン・間・声量・リアクション。5枚のカードをめくって全部チェックしよう。</p>
+        <div class="bar"><i id="bar-b" style="width:0%;background:#FFC93C;"></i></div>
+        <div class="card-foot"><span>所要 約4分</span><span class="go">はじめる →</span></div>
+      </div>
+
+      <div class="card" data-module="c" data-tag="tag-close">
+        <div class="card-top">
+          <div class="card-icon tag-close">🎯</div>
+          <div class="badge todo" id="badge-c">未着手</div>
+        </div>
+        <h3>クロージングの型</h3>
+        <p class="desc">日付確認 → 名前確認 → メール取得。正しい順番をクリックで組み立てるミニ演習。</p>
+        <div class="bar"><i id="bar-c" style="width:0%;background:#5FBE4E;"></i></div>
+        <div class="card-foot"><span>所要 約3分</span><span class="go">はじめる →</span></div>
+      </div>
+
+      <div class="card" data-module="d" data-tag="tag-block">
+        <div class="card-top">
+          <div class="card-icon tag-block">💬</div>
+          <div class="badge todo" id="badge-d">未着手</div>
+        </div>
+        <h3>切り返しトーク集</h3>
+        <p class="desc">「お金かかるの？」など、よくある3つの壁への切り返しをフラッシュカードで練習。</p>
+        <div class="bar"><i id="bar-d" style="width:0%;background:#E5655A;"></i></div>
+        <div class="card-foot"><span>所要 約5分</span><span class="go">はじめる →</span></div>
+      </div>
+
+      <div class="card locked" data-module="ai" data-tag="tag-ai">
+        <div class="card-top">
+          <div class="card-icon tag-ai">🔍</div>
+          <div class="badge soon">近日公開</div>
+        </div>
+        <h3>AIタイプ診断ボット</h3>
+        <p class="desc">相手のセリフを入力すると、AIがタイプを分析。攻略トークまで自動で提案。</p>
+        <div class="bar"><i style="width:0%;"></i></div>
+        <div class="card-foot"><span>開発中</span><span>🔒</span></div>
+      </div>
+
+      <div class="card locked" data-module="role" data-tag="tag-role">
+        <div class="card-top">
+          <div class="card-icon tag-role">🎤</div>
+          <div class="badge soon">近日公開</div>
+        </div>
+        <h3>ロールプレイ音声チャレンジ</h3>
+        <p class="desc">ズーミーの声を相手に、実際のトークを声に出して練習できるモード。</p>
+        <div class="bar"><i style="width:0%;"></i></div>
+        <div class="card-foot"><span>開発中</span><span>🔒</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>© Runbird Inc. IS事業部 &nbsp;/&nbsp; キャラクター：ズーミー</p>
+    <span class="demo-tag">社内共有用デモ版</span>
+  </div>
+</footer>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer-head">
+    <div>
+      <div class="tagline" id="drawerTag">LESSON</div>
+      <h3 id="drawerTitle">レッスン</h3>
+    </div>
+    <button class="close-btn" id="closeDrawer" aria-label="閉じる">
+      <svg width="14" height="14" viewBox="0 0 14 14"><path d="M1 1l12 12M13 1L1 13" stroke="#182238" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+</aside>
+
+<div class="toast" id="toast">
+  <img src="assets/zoomy.png" alt="">
+  <span id="toastText">完了しました！</span>
+</div>
+
+<script>
+/* ---------------- state ---------------- */
+const order = ['a','b','c','d'];
+const state = { a:false, b:false, c:false, d:false };
+const titles = { a:'聞く力', b:'伝え方の5原則', c:'クロージング', d:'切り返しトーク' };
+let completedOrder = [];
+
+const messages = {
+  0: 'やっほー！今日はどのレッスンから始める？気になるものをクリックしてね。一緒に育てていこう！',
+  1: 'いいスタート！1つ終わったね。この調子で次もいってみよう。',
+  2: '半分まで来たよ！お客様との距離が、確実に縮まってきてる。',
+  3: 'あと1つ！ここまで来たら、もう立派なIS事業部メンバーだね。',
+  4: '全部クリア！お疲れさま。芽がしっかり育ったよ、これは自信を持っていい。'
+};
+
+function completedCount(){
+  return order.filter(k=>state[k]).length;
+}
+
+function updateProgress(){
+  const n = completedCount();
+  document.getElementById('doneCount').textContent = n;
+  document.getElementById('statDone').textContent = n;
+  document.getElementById('speechText').textContent = messages[n];
+
+  // ring
+  const circumference = 97.4;
+  const offset = circumference - (circumference * (n/4));
+  document.getElementById('ringProgress').setAttribute('stroke-dashoffset', offset);
+
+  // stem fill: percent based on how many modules (counted bottom-up a->d order doesn't matter, just count)
+  const pct = (n/4)*100;
+  document.getElementById('stemFill').style.height = pct + '%';
+  document.getElementById('stemMascot').style.bottom = pct + '%';
+
+  for(let i=0;i<4;i++){
+    const node = document.getElementById('node-'+i);
+    const label = document.getElementById('label-'+i);
+    if(completedOrder[i]){
+      node.classList.add('done');
+      label.classList.add('done');
+      label.textContent = titles[completedOrder[i]];
+    }else{
+      node.classList.remove('done');
+      label.classList.remove('done');
+      label.textContent = '―';
+    }
+  }
+}
+
+function setBadge(mod, kind){
+  const b = document.getElementById('badge-'+mod);
+  b.className = 'badge ' + kind;
+  b.textContent = kind==='done' ? '完了' : kind==='doing' ? '進行中' : '未着手';
+}
+
+function setBar(mod, pct){
+  document.getElementById('bar-'+mod).style.width = pct+'%';
+}
+
+function markComplete(mod, label){
+  if(state[mod]) return;
+  state[mod] = true;
+  completedOrder.push(mod);
+  setBadge(mod, 'done');
+  setBar(mod, 100);
+  updateProgress();
+  showToast(label + ' 完了！ズーミーが喜んでるよ。');
+  closeDrawer();
+}
+
+/* ---------------- toast ---------------- */
+let toastTimer;
+function showToast(text){
+  const t = document.getElementById('toast');
+  document.getElementById('toastText').textContent = text;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 3200);
+}
+
+/* ---------------- drawer ---------------- */
+const scrim = document.getElementById('scrim');
+const drawer = document.getElementById('drawer');
+
+function openDrawer(tag, title){
+  document.getElementById('drawerTag').textContent = tag;
+  document.getElementById('drawerTitle').textContent = title;
+  scrim.classList.add('open');
+  drawer.classList.add('open');
+}
+function closeDrawer(){
+  scrim.classList.remove('open');
+  drawer.classList.remove('open');
+}
+scrim.addEventListener('click', closeDrawer);
+document.getElementById('closeDrawer').addEventListener('click', closeDrawer);
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDrawer(); });
+
+/* ---------------- lesson content builders ---------------- */
+function noteHTML(text){
+  return `<div class="mascot-note">
+    <img src="assets/zoomy.png" alt="ズーミー">
+    <div><div class="t">ズーミーより</div><p>${text}</p></div>
+  </div>`;
+}
+
+function renderA(){
+  document.getElementById('drawerBody').innerHTML = `
+    ${noteHTML('まずは聞くことから。切り返しはあとでいいから、相手の言葉をちゃんと受け止めよう。')}
+    <div class="lesson-block">
+      <h4><span class="n">1</span>復唱する</h4>
+      <p>相手が話したことを、そのまま繰り返す。切り返しは一切しない。「聞けているか」を確かめるのが目的。</p>
+    </div>
+    <div class="lesson-block">
+      <h4><span class="n">2</span>ひと言だけ深掘りする</h4>
+      <p>復唱のあとに「何かご経験がありましたか？」を添える。質問は欲張らず、これひとつでいい。</p>
+    </div>
+    <div class="lesson-block">
+      <h4><span class="n">3</span>practice：やってみよう</h4>
+      <p style="margin-bottom:10px;">相手に断られた場面を思い出して、復唱＋深掘り質問を書き出してみよう。</p>
+      <textarea class="practice" placeholder="例）相手「今ちょっと忙しくて」→ 復唱＋深掘り…"></textarea>
+    </div>
+    <button class="complete-btn" onclick="markComplete('a','聞く力トレーニング')">
+      このレッスンを完了する
+    </button>
+  `;
+  openDrawer('LISTENING','聞く力トレーニング');
+  if(!state.a) setBadge('a','doing');
+  setBar('a', state.a?100:40);
+}
+
+function renderB(){
+  const items = [
+    {ico:'⚡',nm:'スピード',tip:'速すぎず遅すぎず。相手が聞き取れるテンポを意識する。'},
+    {ico:'🎵',nm:'トーン',tip:'明るく、でも落ち着いた声で。暗さは信頼を下げる。'},
+    {ico:'⏸️',nm:'間',tip:'大事な言葉の前に一呼吸。沈黙が言葉の重みを作る。'},
+    {ico:'📢',nm:'声量',tip:'小さすぎる声は不安に聞こえる。はっきり届く声で。'},
+    {ico:'💬',nm:'リアクション',tip:'「かしこまりました」だけでなく表現を増やす。'},
+  ];
+  document.getElementById('drawerBody').innerHTML = `
+    ${noteHTML('5枚全部めくってね。カードをタップすると裏にコツが出てくるよ。')}
+    <div class="lesson-block">
+      <h4><span class="n">✓</span>5つのカードをめくる</h4>
+      <div class="flip-grid" id="flipGrid">
+        ${items.map((it,i)=>`
+          <div class="flip" data-i="${i}" onclick="flipCard(this)">
+            <div class="flip-inner">
+              <div class="flip-face front"><div class="ico">${it.ico}</div><div class="nm">${it.nm}</div></div>
+              <div class="flip-face back"><p>${it.tip}</p></div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    <button class="complete-btn" id="completeB" disabled onclick="markComplete('b','伝え方の5原則')">
+      全部めくったら完了できます
+    </button>
+  `;
+  openDrawer('SPEAKING','伝え方の5原則');
+  if(!state.b) setBadge('b','doing');
+  setBar('b', state.b?100:20);
+}
+let flippedSet = new Set();
+function flipCard(el){
+  el.classList.toggle('flipped');
+  flippedSet.add(el.dataset.i);
+  const pct = Math.min(100, 20 + flippedSet.size*16);
+  setBar('b', pct);
+  if(flippedSet.size>=5){
+    const btn = document.getElementById('completeB');
+    if(btn){ btn.disabled=false; btn.textContent='このレッスンを完了する'; }
+  }
+}
+
+function renderC(){
+  const steps = [
+    {key:'date', label:'日付確認'},
+    {key:'name', label:'名前確認'},
+    {key:'mail', label:'メール取得'},
+  ];
+  document.getElementById('drawerBody').innerHTML = `
+    ${noteHTML('歴史は繰り返す……じゃなくて、型は繰り返す！順番はいつも同じにしよう。')}
+    <div class="lesson-block">
+      <h4><span class="n">✓</span>正しい順番でクリックしよう</h4>
+      <div class="order-row" id="orderRow">
+        ${steps.map(s=>`<button class="order-btn" data-key="${s.key}" onclick="pickOrder(this)">${s.label}</button>`).join('')}
+      </div>
+      <div class="order-result" id="orderResult"></div>
+    </div>
+    <div class="lesson-block">
+      <h4><span class="n">💡</span>なぜこの順番？</h4>
+      <p>日付→名前→メールの順で確認すると、相手が「もう決まった話」として自然に流れに乗ってくれる。逆にすると、押し売り感が出やすい。</p>
+    </div>
+    <button class="complete-btn" id="completeC" disabled onclick="markComplete('c','クロージングの型')">
+      正しい順番を選ぶと完了できます
+    </button>
+  `;
+  openDrawer('CLOSING','クロージングの型');
+  if(!state.c) setBadge('c','doing');
+  setBar('c', state.c?100:15);
+  window.orderPicked = [];
+}
+function pickOrder(btn){
+  if(btn.disabled) return;
+  btn.disabled = true;
+  btn.classList.add('picked');
+  window.orderPicked.push(btn.dataset.key);
+  setBar('c', 15 + window.orderPicked.length*25);
+  if(window.orderPicked.length === 3){
+    const correct = JSON.stringify(['date','name','mail']) === JSON.stringify(window.orderPicked);
+    const res = document.getElementById('orderResult');
+    if(correct){
+      res.textContent = '正解！この順番で覚えておこう。';
+      res.className = 'order-result ok';
+      const btnC = document.getElementById('completeC');
+      btnC.disabled = false; btnC.textContent = 'このレッスンを完了する';
+    }else{
+      res.textContent = '順番が違うみたい。もう一度挑戦してみよう。';
+      res.className = 'order-result ng';
+      setTimeout(()=>{
+        document.querySelectorAll('#orderRow .order-btn').forEach(b=>{b.disabled=false;b.classList.remove('picked');});
+        window.orderPicked = [];
+        res.textContent='';
+        setBar('c', 15);
+      }, 1400);
+    }
+  }
+}
+
+function renderD(){
+  const talks = [
+    {q:'「お金かかるの？」', a:'内容を気に入っていただければ有料になりますが、まずはお話だけ聞いていただけますか？と伝えます。'},
+    {q:'「営業なら大丈夫」', a:'ご安心いただくために、まずは1分だけお時間をいただけますか？と、時間の小ささを先に伝えます。'},
+    {q:'「HPから送って」', a:'資料もお送りしますが、内容が伝わりやすいので先に2〜3分だけお話しさせてください、と流れを作ります。'},
+  ];
+  document.getElementById('drawerBody').innerHTML = `
+    ${noteHTML('3枚全部開いてね。相手の言葉を先に読んでから、切り返しを確認しよう。')}
+    <div class="lesson-block">
+      <h4><span class="n">✓</span>よくある3つの壁</h4>
+      ${talks.map((t,i)=>`
+        <div class="talk-item" id="talk-${i}" onclick="toggleTalk(${i})">
+          <div class="talk-q">${t.q}<span class="mark">＋</span></div>
+          <div class="talk-a"><p>${t.a}</p></div>
+        </div>
+      `).join('')}
+    </div>
+    <button class="complete-btn" id="completeD" disabled onclick="markComplete('d','切り返しトーク集')">
+      3つとも開いたら完了できます
+    </button>
+  `;
+  openDrawer('OBJECTIONS','切り返しトーク集');
+  if(!state.d) setBadge('d','doing');
+  setBar('d', state.d?100:10);
+  window.talkOpened = new Set();
+}
+function toggleTalk(i){
+  const el = document.getElementById('talk-'+i);
+  el.classList.toggle('open');
+  window.talkOpened.add(i);
+  setBar('d', 10 + window.talkOpened.size*30);
+  if(window.talkOpened.size>=3){
+    const btn = document.getElementById('completeD');
+    if(btn){ btn.disabled=false; btn.textContent='このレッスンを完了する'; }
+  }
+}
+
+function renderSoon(title, tag){
+  document.getElementById('drawerBody').innerHTML = `
+    <div class="soon-box">
+      <div class="em">🌱</div>
+      <h4>${title}は準備中</h4>
+      <p>ズーミーが今、一生懸命コンテンツを育てています。もう少しだけ待っててね。</p>
+    </div>
+  `;
+  openDrawer(tag,title);
+}
+
+/* ---------------- card click routing ---------------- */
+document.querySelectorAll('.card').forEach(card=>{
+  card.setAttribute('tabindex','0');
+  card.setAttribute('role','button');
+  const mod = card.dataset.module;
+  const trigger = ()=>{
+    if(mod==='a') renderA();
+    else if(mod==='b') renderB();
+    else if(mod==='c') renderC();
+    else if(mod==='d') renderD();
+    else if(mod==='ai') renderSoon('AIタイプ診断ボット','AI DIAGNOSIS');
+    else if(mod==='role') renderSoon('ロールプレイ音声チャレンジ','ROLEPLAY');
+  };
+  card.addEventListener('click', trigger);
+  card.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); trigger(); }});
+});
+
+updateProgress();
+</script>
+</body>
+</html>
