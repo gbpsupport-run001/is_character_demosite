@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>候補キャラ図鑑 | IS事業部</title>
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#0B1F3A">
+<link rel="apple-touch-icon" href="./assets/zoomy.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -378,6 +381,12 @@ document.addEventListener('keydown', e=>{
 
 buildRoster();
 render();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js');
+  });
+}
 </script>
 </body>
 </html>
