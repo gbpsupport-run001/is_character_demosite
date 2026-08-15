@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>候補キャラ図鑑 | IS事業部</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --navy:#0B1F3A;
+  --navy-soft:#152B4D;
+  --ink:#182238;
+  --ink-soft:#5B6478;
+  --cream:#F6F4EC;
+  --paper:#FFFFFF;
+  --sky:#3E8EF7;
+  --sky-deep:#2563D9;
+  --leaf:#5FBE4E;
+  --leaf-deep:#3F9A31;
+  --sun:#FFC93C;
+  --line:#E5E1D4;
+  --shadow: 0 20px 45px -20px rgba(11,31,58,0.25);
+  --radius-lg: 26px;
+  --radius-md: 18px;
+  --radius-sm: 12px;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;background:var(--cream);color:var(--ink);
+  font-family:'Noto Sans JP',sans-serif;-webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,.display{font-family:'Zen Maru Gothic',sans-serif;font-weight:900;color:var(--navy);}
+p{line-height:1.85;color:var(--ink-soft);}
+button{font-family:inherit;}
+img{max-width:100%;display:block;}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+
+/* header (shared style) */
+header.site{position:sticky;top:0;z-index:40;background:rgba(246,244,236,0.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+.site-bar{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:12px;}
+.brand{display:flex;align-items:center;gap:10px;}
+.brand-mark{width:34px;height:34px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.brand-mark svg{width:18px;height:18px;}
+.brand-text{line-height:1.15;}
+.brand-text .b1{font-family:'Zen Maru Gothic',sans-serif;font-weight:700;font-size:14px;color:var(--navy);}
+.brand-text .b2{font-size:10.5px;color:var(--ink-soft);letter-spacing:.04em;}
+.back-link{
+  display:flex;align-items:center;gap:6px;
+  font-size:12.5px;font-weight:700;color:var(--sky-deep);
+  text-decoration:none;background:var(--paper);border:1px solid var(--line);
+  padding:8px 16px;border-radius:999px;white-space:nowrap;
+  transition:background .2s ease;
+}
+.back-link:hover{background:#F1EEE3;}
+
+/* intro */
+.intro{padding:44px 0 24px;}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--leaf-deep);
+  background:rgba(95,190,78,0.12);border:1px solid rgba(95,190,78,0.35);
+  padding:6px 14px;border-radius:999px;margin-bottom:16px;
+}
+.eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--leaf);}
+.intro h1{font-size:clamp(24px,3.6vw,34px);line-height:1.4;margin:0 0 12px;}
+.intro p{font-size:13.5px;max-width:560px;margin:0;}
+
+/* ---------------- viewer (zukan card) ---------------- */
+.viewer-shell{padding:20px 0 10px;}
+.zukan{
+  position:relative;
+  border-radius:24px;
+  background:linear-gradient(180deg,#1B3B63,#0B1F3A 60%);
+  padding:14px;
+  box-shadow:var(--shadow);
+  background-image:
+    radial-gradient(rgba(255,255,255,0.10) 1.4px, transparent 1.4px);
+  background-size:12px 12px;
+  background-position: -4px -4px;
+}
+.zukan-inner{
+  background:var(--navy-soft);
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.08);
+}
+.zukan-top{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 18px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.06), transparent);
+}
+.zukan-top .ttl{
+  font-family:'Zen Maru Gothic',sans-serif;font-weight:700;color:#fff;font-size:13px;
+  display:flex;align-items:center;gap:8px;
+}
+.zukan-top .ttl .sq{width:8px;height:8px;background:var(--sun);border-radius:2px;transform:rotate(45deg);}
+.zukan-top .count{
+  font-size:12px;font-weight:700;color:#fff;
+  background:rgba(255,255,255,0.12);padding:4px 12px;border-radius:999px;
+}
+.zukan-top .count b{color:var(--sun);}
+
+.stage{
+  position:relative;
+  height:min(58vw,420px);
+  min-height:280px;
+  background:
+    linear-gradient(180deg, rgba(95,190,78,0.16), rgba(62,142,247,0.10)),
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 34px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 34px);
+  display:flex;align-items:flex-end;justify-content:center;
+  overflow:hidden;
+}
+.stage-char{
+  position:relative;z-index:2;
+  height:88%;
+  max-height:360px;
+  object-fit:contain;
+  filter:drop-shadow(0 18px 20px rgba(0,0,0,0.35));
+  animation:bob 3.6s ease-in-out infinite;
+  transition:opacity .25s ease, transform .25s ease;
+}
+@keyframes bob{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-10px);}
+}
+.stage-char.switching{opacity:0;transform:translateY(8px) scale(.97);}
+
+.nav-btn{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:44px;height:44px;border-radius:50%;
+  background:rgba(11,31,58,0.55);border:1.5px solid rgba(255,255,255,0.35);
+  color:#fff;cursor:pointer;z-index:5;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s ease, transform .2s ease;
+}
+.nav-btn:hover{background:rgba(11,31,58,0.8);}
+.nav-btn:active{transform:translateY(-50%) scale(.92);}
+.nav-btn.prev{left:14px;}
+.nav-btn.next{right:14px;}
+.nav-btn svg{width:16px;height:16px;}
+
+.dots{position:absolute;top:14px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:5;}
+.dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.3);transition:all .3s ease;}
+.dots i.active{background:var(--sun);width:16px;border-radius:4px;}
+
+.info-box{
+  padding:18px 20px 22px;
+  background:linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.4));
+}
+.info-box .name{
+  font-family:'Zen Maru Gothic',sans-serif;font-weight:900;color:#fff;
+  font-size:19px;margin:0 0 4px;
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+}
+.info-box .name .type-tag{
+  font-family:'Noto Sans JP',sans-serif;font-weight:700;font-size:10.5px;
+  color:var(--navy);background:var(--sun);padding:3px 10px;border-radius:999px;
+}
+.info-box .desc{
+  color:rgba(255,255,255,0.82);font-size:13px;line-height:1.9;margin:0;
+  min-height:78px;
+}
+
+.zukan-bottom{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 18px 14px;
+}
+.zukan-bottom .hint{font-size:10.5px;color:rgba(255,255,255,0.4);}
+.jump-select{
+  background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);
+  border-radius:999px;padding:6px 14px;font-size:11.5px;font-weight:600;
+}
+
+/* ---------------- roster grid ---------------- */
+.roster{padding:34px 0 90px;}
+.section-head{margin:0 0 22px;}
+.section-head h2{font-size:clamp(20px,2.6vw,25px);margin:0 0 6px;}
+.section-head p{margin:0;font-size:13px;}
+
+.roster-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;}
+.rcard{
+  background:var(--paper);border:2px solid var(--line);border-radius:16px;
+  padding:12px 8px 12px;text-align:center;cursor:pointer;
+  transition:all .2s ease;
+}
+.rcard:hover{border-color:var(--sky);transform:translateY(-3px);}
+.rcard.active{border-color:var(--leaf);background:rgba(95,190,78,0.07);}
+.rcard .thumb{
+  width:100%;aspect-ratio:1/1;border-radius:12px;overflow:hidden;
+  background:linear-gradient(180deg,#EAF3FF,#F6F4EC);
+  display:flex;align-items:flex-end;justify-content:center;margin-bottom:8px;
+}
+.rcard .thumb img{height:96%;object-fit:contain;}
+.rcard .rn{font-size:11.5px;font-weight:700;color:var(--navy);}
+.rcard .no{font-size:9.5px;color:var(--ink-soft);font-weight:700;}
+
+footer{border-top:1px solid var(--line);padding:26px 0 40px;}
+footer .wrap{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+footer p{margin:0;font-size:11.5px;color:var(--ink-soft);}
+.demo-tag{
+  font-size:10.5px;font-weight:700;color:var(--sky-deep);
+  background:rgba(62,142,247,0.1);border:1px solid rgba(62,142,247,0.25);
+  padding:4px 12px;border-radius:999px;
+}
+
+@media (max-width:860px){
+  .roster-grid{grid-template-columns:repeat(3,1fr);}
+}
+@media (max-width:600px){
+  .wrap{padding:0 18px;}
+  .brand-text .b2{display:none;}
+  .roster-grid{grid-template-columns:repeat(2,1fr);}
+  .info-box .desc{min-height:104px;}
+  .zukan-bottom{flex-direction:column;align-items:flex-start;gap:8px;}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important;}}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap site-bar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3c3 3 3 6 0 9-3-3-3-6 0-9Z" fill="#5FBE4E"/><path d="M12 21v-9" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </div>
+      <div class="brand-text">
+        <div class="b1">候補キャラ図鑑</div>
+        <div class="b2">Runbird IS事業部・育成デモ</div>
+      </div>
+    </div>
+    <a class="back-link" href="index.html">
+      <svg width="12" height="12" viewBox="0 0 12 12"><path d="M7 1L2 6l5 5" stroke="#2563D9" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      研修ダッシュボードへ
+    </a>
+  </div>
+</header>
+
+<section class="intro">
+  <div class="wrap">
+    <div class="eyebrow">IS事業部 公式キャラクター選考</div>
+    <h1>マスコット候補、6人。<br class="mobileonly">誰がIS事業部の「顔」になる？</h1>
+    <p>矢印またはカードのクリックで候補をめくれます。会議での選考材料として、それぞれのキャラクター性をまとめました。</p>
+  </div>
+</section>
+
+<section class="viewer-shell">
+  <div class="wrap">
+    <div class="zukan">
+      <div class="zukan-inner">
+        <div class="zukan-top">
+          <div class="ttl"><span class="sq"></span>候補キャラ図鑑</div>
+          <div class="count"><b id="curNo">1</b> / 6</div>
+        </div>
+
+        <div class="stage" id="stage">
+          <div class="dots" id="dots"></div>
+          <button class="nav-btn prev" id="prevBtn" aria-label="前のキャラ">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <img class="stage-char" id="stageChar" src="" alt="">
+          <button class="nav-btn next" id="nextBtn" aria-label="次のキャラ">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+
+        <div class="info-box">
+          <div class="name"><span id="charName">―</span><span class="type-tag" id="charType">―</span></div>
+          <p class="desc" id="charDesc">―</p>
+        </div>
+
+        <div class="zukan-bottom">
+          <span class="hint">← → キーでも切り替えられます</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="roster">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>候補一覧</h2>
+      <p>気になるキャラをタップすると、上の図鑑に切り替わります。</p>
+    </div>
+    <div class="roster-grid" id="rosterGrid"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>© Runbird Inc. IS事業部 &nbsp;/&nbsp; 候補キャラ選考デモ</p>
+    <span class="demo-tag">社内共有用デモ版</span>
+  </div>
+</footer>
+
+<script>
+const chars = [
+  {
+    id:'rina', name:'リナ', type:'陽キャ即アポ型', img:'assets/char-rina.png',
+    desc:'元アパレル店員のトップIS。明るいテンションで初対面の警戒心を一瞬で溶かす。相槌が多すぎて、たまに自分でも何の話をしていたか忘れる。'
+  },
+  {
+    id:'aoi', name:'葵', type:'冷静クロージング型', img:'assets/char-aoi.png',
+    desc:'新卒2年目のホープ。丁寧な言葉選びでじっくり信頼を積み上げるタイプ。実は誰よりも早口で喋れるが、商談中は封印している。'
+  },
+  {
+    id:'duck', name:'アヒル部長', type:'堅実・資料オタク型', img:'assets/char-duck.png',
+    desc:'研修資料を作り込みすぎて自分でも読み切れていない。真面目さは事業部随一。雑談力はこれからだが、信頼の厚さなら誰にも負けない。'
+  },
+  {
+    id:'nyanta', name:'にゃんた', type:'ムードメーカー型', img:'assets/char-nyanta.png',
+    desc:'愛想がよく、褒められると急に照れて声が裏返る。チームの空気を明るくする癒し系。ネコカンではなくコーヒーで動くタイプ。'
+  },
+  {
+    id:'blue', name:'ブルーくん', type:'正体不明の実力派', img:'assets/char-blue.png',
+    desc:'宇宙服なのか着ぐるみなのか、誰も正体を知らない。表情はいつも一定だが、商談成立率はなぜか事業部トップクラス。'
+  },
+  {
+    id:'zoomy', name:'ズーミー', type:'公式キャラクター', img:'assets/zoomy.png',
+    desc:'IS事業部の公式マスコット。双葉のアタマで「はじめの一歩」をサポートする案内役。6人の中で唯一、公式設定資料つきの本命候補。'
+  },
+];
+
+let current = 0;
+const stageChar = document.getElementById('stageChar');
+const rosterGrid = document.getElementById('rosterGrid');
+const dotsWrap = document.getElementById('dots');
+
+function buildRoster(){
+  rosterGrid.innerHTML = chars.map((c,i)=>`
+    <div class="rcard" data-i="${i}" onclick="goTo(${i})">
+      <div class="thumb"><img src="${c.img}" alt="${c.name}"></div>
+      <div class="rn">${c.name}</div>
+      <div class="no">No.${i+1}</div>
+    </div>
+  `).join('');
+  dotsWrap.innerHTML = chars.map((_,i)=>`<i data-i="${i}"></i>`).join('');
+}
+
+function render(){
+  const c = chars[current];
+  stageChar.classList.add('switching');
+  setTimeout(()=>{
+    stageChar.src = c.img;
+    stageChar.alt = c.name;
+    stageChar.classList.remove('switching');
+  }, 140);
+
+  document.getElementById('charName').textContent = '【'+c.name+'】';
+  document.getElementById('charType').textContent = c.type;
+  document.getElementById('charDesc').textContent = c.desc;
+  document.getElementById('curNo').textContent = current+1;
+
+  document.querySelectorAll('.rcard').forEach((el,i)=>{
+    el.classList.toggle('active', i===current);
+  });
+  document.querySelectorAll('.dots i').forEach((el,i)=>{
+    el.classList.toggle('active', i===current);
+  });
+}
+
+function goTo(i){
+  current = (i + chars.length) % chars.length;
+  render();
+}
+function next(){ goTo(current+1); }
+function prev(){ goTo(current-1); }
+
+document.getElementById('nextBtn').addEventListener('click', next);
+document.getElementById('prevBtn').addEventListener('click', prev);
+document.addEventListener('keydown', e=>{
+  if(e.key==='ArrowRight') next();
+  if(e.key==='ArrowLeft') prev();
+});
+
+buildRoster();
+render();
+</script>
+</body>
+</html>
