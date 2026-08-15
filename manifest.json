@@ -1,0 +1,25 @@
+{
+  "name": "テレアポ研修 | IS事業部 with ズーミー",
+  "short_name": "テレアポ研修",
+  "description": "IS事業部公式キャラクター ズーミーと学ぶテレアポ研修",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "lang": "ja",
+  "icons": [
+    {
+      "src": "assets/zoomy.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/zoomy.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
