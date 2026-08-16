@@ -4,9 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>候補キャラ図鑑 | IS事業部</title>
-<link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#0B1F3A">
-<link rel="apple-touch-icon" href="./assets/zoomy.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -57,6 +54,32 @@ header.site{position:sticky;top:0;z-index:40;background:rgba(246,244,236,0.88);b
   transition:background .2s ease;
 }
 .back-link:hover{background:#F1EEE3;}
+.header-actions{display:flex;align-items:center;gap:10px;}
+.cta-link{
+  display:flex;align-items:center;gap:6px;
+  font-size:12.5px;font-weight:700;color:var(--navy);
+  text-decoration:none;background:var(--sun);border:1px solid #E6B325;
+  padding:8px 16px;border-radius:999px;white-space:nowrap;
+  transition:transform .2s ease, box-shadow .2s ease;
+  box-shadow:0 6px 14px -6px rgba(255,201,60,0.6);
+}
+.cta-link:hover{transform:translateY(-1px);box-shadow:0 10px 18px -6px rgba(255,201,60,0.7);}
+
+.banner-cta{
+  display:flex;align-items:center;gap:14px;
+  margin-top:22px;padding:16px 20px;
+  background:linear-gradient(90deg, rgba(255,201,60,0.16), rgba(62,142,247,0.10));
+  border:1.5px solid rgba(255,201,60,0.5);
+  border-radius:var(--radius-md);
+  text-decoration:none;max-width:560px;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.banner-cta:hover{transform:translateY(-2px);box-shadow:var(--shadow);}
+.banner-cta-ico{font-size:24px;flex-shrink:0;}
+.banner-cta-text{display:flex;flex-direction:column;gap:2px;flex:1;}
+.banner-cta-text b{font-size:13.5px;color:var(--navy);font-family:'Zen Maru Gothic',sans-serif;}
+.banner-cta-text span{font-size:11.5px;color:var(--ink-soft);}
+.banner-cta-arrow{font-size:18px;color:var(--sky-deep);font-weight:700;flex-shrink:0;}
 
 /* intro */
 .intro{padding:44px 0 24px;}
@@ -182,7 +205,7 @@ header.site{position:sticky;top:0;z-index:40;background:rgba(246,244,236,0.88);b
 .section-head h2{font-size:clamp(20px,2.6vw,25px);margin:0 0 6px;}
 .section-head p{margin:0;font-size:13px;}
 
-.roster-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;}
+.roster-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
 .rcard{
   background:var(--paper);border:2px solid var(--line);border-radius:16px;
   padding:12px 8px 12px;text-align:center;cursor:pointer;
@@ -217,6 +240,11 @@ footer p{margin:0;font-size:11.5px;color:var(--ink-soft);}
   .roster-grid{grid-template-columns:repeat(2,1fr);}
   .info-box .desc{min-height:104px;}
   .zukan-bottom{flex-direction:column;align-items:flex-start;gap:8px;}
+  .header-actions{gap:6px;}
+  .cta-link{padding:7px 12px;font-size:11px;}
+  .banner-cta{padding:13px 16px;gap:10px;}
+  .banner-cta-text b{font-size:12.5px;}
+  .banner-cta-text span{font-size:10.5px;}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important;}}
 </style>
@@ -231,21 +259,30 @@ footer p{margin:0;font-size:11.5px;color:var(--ink-soft);}
       </div>
       <div class="brand-text">
         <div class="b1">候補キャラ図鑑</div>
-        <div class="b2">Runbird IS事業部・育成デモ</div>
+        <div class="b2">Runbird IS事業部</div>
       </div>
     </div>
-    <a class="back-link" href="index.html">
-      <svg width="12" height="12" viewBox="0 0 12 12"><path d="M7 1L2 6l5 5" stroke="#2563D9" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      研修ダッシュボードへ
-    </a>
+    <div class="header-actions">
+      <a class="cta-link" href="https://gbpsupport-run001.github.io/rumbird-is-shodan-analyzer/" target="_blank" rel="noopener">
+        📊 商談分析ツールへ
+      </a>
+    </div>
   </div>
 </header>
 
 <section class="intro">
   <div class="wrap">
     <div class="eyebrow">IS事業部 公式キャラクター選考</div>
-    <h1>マスコット候補、6人。<br class="mobileonly">誰がIS事業部の「顔」になる？</h1>
+    <h1>マスコット候補、8人。<br class="mobileonly">誰がIS事業部の「顔」になる？</h1>
     <p>矢印またはカードのクリックで候補をめくれます。会議での選考材料として、それぞれのキャラクター性をまとめました。</p>
+    <a class="banner-cta" href="https://gbpsupport-run001.github.io/rumbird-is-shodan-analyzer/" target="_blank" rel="noopener">
+      <span class="banner-cta-ico">📊</span>
+      <span class="banner-cta-text">
+        <b>商談分析ツールもチェック</b>
+        <span>IS事業部の商談データをまとめて見られます</span>
+      </span>
+      <span class="banner-cta-arrow">→</span>
+    </a>
   </div>
 </section>
 
@@ -255,7 +292,7 @@ footer p{margin:0;font-size:11.5px;color:var(--ink-soft);}
       <div class="zukan-inner">
         <div class="zukan-top">
           <div class="ttl"><span class="sq"></span>候補キャラ図鑑</div>
-          <div class="count"><b id="curNo">1</b> / 6</div>
+          <div class="count"><b id="curNo">1</b> / <span id="totalNo">8</span></div>
         </div>
 
         <div class="stage" id="stage">
@@ -302,6 +339,14 @@ footer p{margin:0;font-size:11.5px;color:var(--ink-soft);}
 <script>
 const chars = [
   {
+    id:'eguchi-natsu', name:'エグチマネージャー(夏)', type:'自転車通勤の達人', img:'assets/char-eguchi-natsu.png',
+    desc:'Runbirdのマネージャー。普段は愛用の赤い自転車でどこへでも颯爽と駆けつける。夏は身軽な軽装で、パン屋への買い出しも全力疾走。'
+  },
+  {
+    id:'eguchi-fuyu', name:'エグチマネージャー(冬)', type:'防寒重装型', img:'assets/char-eguchi-fuyu.png',
+    desc:'寒がりなので、冬になると一枚多く着込む主義。自転車もシェアサイクルに切り替え、防寒ジャケットで完全装備してから出勤する。'
+  },
+  {
     id:'rina', name:'リナ', type:'陽キャ即アポ型', img:'assets/char-rina.png',
     desc:'元アパレル店員のトップIS。明るいテンションで初対面の警戒心を一瞬で溶かす。相槌が多すぎて、たまに自分でも何の話をしていたか忘れる。'
   },
@@ -333,6 +378,7 @@ const rosterGrid = document.getElementById('rosterGrid');
 const dotsWrap = document.getElementById('dots');
 
 function buildRoster(){
+  document.getElementById('totalNo').textContent = chars.length;
   rosterGrid.innerHTML = chars.map((c,i)=>`
     <div class="rcard" data-i="${i}" onclick="goTo(${i})">
       <div class="thumb"><img src="${c.img}" alt="${c.name}"></div>
@@ -381,12 +427,6 @@ document.addEventListener('keydown', e=>{
 
 buildRoster();
 render();
-
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js');
-  });
-}
 </script>
 </body>
 </html>
