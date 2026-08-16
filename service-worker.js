@@ -1,58 +1,50 @@
-// キャッシュ名。ファイルを更新して再反映させたいときは、この番号を上げる。
-const CACHE_NAME = "teleapo-training-cache-v1";
-
-// 事前キャッシュしておきたいファイル
+const CACHE_NAME = 'is-zukan-v1';
 const PRECACHE_URLS = [
-  "./",
-  "./index.html",
-  "./characters.html",
-  "./manifest.json",
-  "./assets/zoomy.png"
+  './characters.html',
+  './index.html',
+  './manifest.json',
+  './assets/char-eguchi-natsu.png',
+  './assets/char-eguchi-fuyu.png',
+  './assets/char-rina.png',
+  './assets/char-aoi.png',
+  './assets/char-duck.png',
+  './assets/char-nyanta.png',
+  './assets/char-blue.png',
+  './assets/zoomy.png',
+  './icons/icon-192.png',
+  './icons/icon-512.png',
+  './icons/apple-touch-icon-180.png',
 ];
 
-// インストール時:必要なファイルを事前キャッシュ
-self.addEventListener("install", (event) => {
+self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) =>
-      cache.addAll(PRECACHE_URLS).catch(() => {
-        // 存在しないファイルがあってもインストール全体は失敗させない
-        return Promise.resolve();
-      })
-    )
+    caches.open(CACHE_NAME)
+      .then((cache) => cache.addAll(PRECACHE_URLS))
+      .then(() => self.skipWaiting())
   );
-  self.skipWaiting();
 });
 
-// 有効化時:古いキャッシュを削除
-self.addEventListener("activate", (event) => {
+self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(
-        keys
-          .filter((key) => key !== CACHE_NAME)
-          .map((key) => caches.delete(key))
-      )
-    )
+    caches.keys().then((names) =>
+      Promise.all(names.filter(n => n !== CACHE_NAME).map(n => caches.delete(n)))
+    ).then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
-// リクエスト時:ネットワーク優先、失敗したらキャッシュを返す
-self.addEventListener("fetch", (event) => {
-  const url = new URL(event.request.url);
-
-  // 同一サイト以外(外部API等)はキャッシュ対象外
-  if (url.origin !== self.location.origin) {
-    return;
-  }
+self.addEventListener('fetch', (event) => {
+  if (event.request.method !== 'GET') return;
 
   event.respondWith(
-    fetch(event.request)
-      .then((response) => {
-        const clone = response.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+    caches.match(event.request).then((cached) => {
+      const network = fetch(event.request).then((response) => {
+        if (response && response.status === 200) {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+        }
         return response;
-      })
-      .catch(() => caches.match(event.request))
+      }).catch(() => cached);
+      return cached || network;
+    })
   );
 });
